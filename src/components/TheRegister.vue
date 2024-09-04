@@ -49,7 +49,7 @@
             Register
           </button>
           <div class="flex flex-col justify-center items-center">
-            <router-link to="/login"
+            <router-link to="/"
               class="mt-5 inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600">
               Already have an account? Login.
             </router-link>

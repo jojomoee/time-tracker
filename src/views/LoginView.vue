@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import TheLogin from '../components/TheLogin.vue'
+import { TheLogin } from '@/components/TheLogin';
 
 const email = ref('')
 const password = ref('')

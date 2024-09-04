@@ -1,8 +1,8 @@
 <!-- src/components/CollapsibleNavbar.vue -->
 <template>
-  <nav class=" bg-gray-100 dark:bg-gray-900 rounded ">
-    <div class="container mx-auto flex items-center justify-center">
-      <button @click="toggleNavbar" class="absolute top-10 right-10 text-white focus:outline-none md:hidden">
+  <nav class="top-10 right-10 bg-gray-100 dark:bg-gray-900 rounded ">
+    <div class="container mx-auto flex items-center justify-center flex-col">
+      <button @click="toggleNavbar" class=" text-white focus:outline-none md:hidden">
 
         <svg :class="[
           'w-10 h-10',
@@ -19,7 +19,7 @@
           <li><router-link to="/about"
               class="text-center mb-5 text-gray-900 dark:text-white block md:inline">About</router-link>
           </li>
-          <li><router-link to="/login" href="#"
+          <li><router-link to="/"
               class="text-center mb-5 text-gray-900 dark:text-white block md:inline">Login</router-link></li>
 
           <li class="text-center">
