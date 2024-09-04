@@ -4,8 +4,14 @@
     <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-gray-100">Login</h2>
       <form @submit.prevent="handleSubmit">
-        <EmailInput v-model="email" :error="errors.email" />
-        <PasswordInput v-model="password" :error="errors.password" />
+        <div class="mb-6">
+          <EmailInput v-model="email" :error="errors.email" />
+        </div>
+
+        <div class="mb-6">
+          <PasswordInput v-model="password" :error="errors.password" />
+        </div>
+
         <FormButtons />
       </form>
     </div>
@@ -13,18 +19,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useLogin } from '@/composables/useLogin' // Adjust the path as needed
 import EmailInput from './EmailInput.vue'
 import PasswordInput from './PasswordInput.vue'
 import FormButtons from './FormButtons.vue'
 
-const email = ref('')
-const password = ref('')
-const errors = ref({})
-
-// Add your handleSubmit logic
-//
-const handleSubmit = () => {
-  console.log(email.value)
-}
+// Use the useLogin composable
+const { email, password, errors, handleSubmit } = useLogin()
 </script>

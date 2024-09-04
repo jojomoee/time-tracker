@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.3",
+    "gsap": "^3.12.5",
     "valibot": "^0.41.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"

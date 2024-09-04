@@ -1,11 +1,11 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import TheNavbar from './components/TheNavbar.vue'
+import TheNavbar from './components/TheNavbar/TheNavbar.vue'
 
 </script>
 
 <template>
-  <header class="absolute top-10 right-10 bg-gray-100 dark:bg-gray-900 p-4 shadow-md rounded">
+  <header class="absolute top-5 right-5">
     <TheNavbar />
   </header>
 
