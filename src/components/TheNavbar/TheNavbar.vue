@@ -6,7 +6,7 @@
     </div>
   </nav>
 
-  <nav class="flex max-sm:hidden">
+  <nav class="flex max-md:hidden">
     <NavbarItems :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
   </nav>
 
