@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import TheRegister from '../components/TheRegister.vue'
+import TheRegistration from '../components/Registration/TheRegistration.vue'
 
 const email = ref('')
 const password = ref('')
@@ -15,6 +15,6 @@ const login = () => {
 
 <template>
   <form @submit.prevent="login">
-    <TheRegister />
+    <TheRegistration />
   </form>
 </template>

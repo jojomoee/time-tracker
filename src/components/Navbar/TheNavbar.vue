@@ -26,6 +26,7 @@ function toggleNavbar() {
   if (isNavbarOpen.value) {
     gsap.to(navbar.value, {
       height: 'auto',
+      width: '10rem',
       opacity: 1,
       visibility: 'visible',
       pointerEvents: 'auto',
