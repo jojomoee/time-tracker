@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { useLogin } from '@/composables/useLogin' // Adjust the path as needed
+import { useLogin } from '@/composables/useLogin'
 import EmailInput from './EmailInput.vue'
 import PasswordInput from './PasswordInput.vue'
 import FormButtons from './FormButtons.vue'

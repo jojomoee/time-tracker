@@ -49,7 +49,7 @@
             Register
           </button>
           <div class="flex flex-col justify-center items-center">
-            <router-link to="/"
+            <router-link to="/login"
               class="mt-5 inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600">
               Already have an account? Login.
             </router-link>
@@ -61,46 +61,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { supabase } from '../../supabase' // Import the Supabase client
+import { ref } from 'vue';
+import { useRegister } from '@/composables/useRegister';  // Import the composable
 
-const firstName = ref('')
-const lastName = ref('')
-const email = ref('')
-const password = ref('')
-const repeatPassword = ref('')
-
-const register = async () => {
-  // Check if passwords match
-  if (password.value !== repeatPassword.value) {
-    alert('Passwords do not match!')
-    return
-  }
-
-  try {
-    // Insert new user into the Supabase users table
-    const { data, error } = await supabase
-      .from('users')
-      .insert([
-        {
-          first_name: firstName.value,
-          last_name: lastName.value,
-          email: email.value,
-          password: password.value // Remember to hash the password in a real application
-        }
-      ])
-
-    if (error) {
-      console.error('Error creating user:', error)
-      alert('There was an error creating your account.')
-    } else {
-      console.log('User created successfully:', data)
-      alert('Registration successful!')
-      // You can also redirect to another page after successful registration
-    }
-  } catch (error) {
-    console.error('Unexpected error:', error)
-    alert('An unexpected error occurred.')
-  }
-}
+const { firstName, lastName, email, password, repeatPassword, register } = useRegister();
 </script>
+
+<style scoped>
+/* Add your styles here */
+</style>

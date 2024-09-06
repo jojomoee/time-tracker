@@ -1,13 +1,13 @@
 <template>
   <nav class="bg-gray-100 dark:bg-gray-800 rounded flex flex-col justify-center items-end">
-    <MenuButton :isDarkMode="isDarkMode" @toggleNavbar="toggleNavbar" />
+    <MenuButton :isDarkMode="darkModeStore.isDarkMode" @toggleNavbar="toggleNavbar" />
     <div ref="navbar" class="container mx-auto items-center justify-center flex-col hidden">
-      <NavbarItems :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
+      <NavbarItems :isDarkMode="darkModeStore.isDarkMode" @toggleDarkMode="darkModeStore.toggleDarkMode" />
     </div>
   </nav>
 
   <nav class="flex max-md:hidden">
-    <NavbarItems :isDarkMode="isDarkMode" @toggleDarkMode="toggleDarkMode" />
+    <NavbarItems :isDarkMode="darkModeStore.isDarkMode" @toggleDarkMode="darkModeStore.toggleDarkMode" />
   </nav>
 
 </template>
@@ -17,6 +17,9 @@ import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import MenuButton from './MenuButton.vue';
 import NavbarItems from './NavbarItems.vue';
+import { useDarkModeStore } from '../../store/darkMode'
+
+const darkModeStore = useDarkModeStore();
 
 const isNavbarOpen = ref(false);
 const navbar = ref(null);
@@ -50,21 +53,6 @@ function toggleNavbar() {
       }
     });
   }
-}
-
-const isDarkMode = ref(true);
-
-const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-  if (isDarkMode.value) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-};
-
-if (isDarkMode.value) {
-  document.documentElement.classList.add('dark');
 }
 
 onMounted(() => {

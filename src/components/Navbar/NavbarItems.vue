@@ -22,7 +22,7 @@
 import { defineEmits, defineProps } from 'vue';
 
 const emits = defineEmits(['toggleDarkMode']);
-const props = defineProps({
+defineProps({
   isDarkMode: Boolean
 });
 
