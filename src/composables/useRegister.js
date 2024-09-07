@@ -4,6 +4,7 @@ import { supabase } from '../supabase';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import { useDarkModeStore } from '@/store/darkMode';
+import { useUserStore } from '@/store/user';
 
 export function useRegister() {
   const firstName = ref('');
@@ -54,6 +55,11 @@ export function useRegister() {
           password: password.value,
         });
 
+        const userStore = useUserStore();
+        userStore.setEmail(email.value);
+
+
+        //Error Singing in
         if (authError) {
           console.error('Error creating user:', authError);
           toast.error('There was an error creating your account.', {
@@ -75,7 +81,6 @@ export function useRegister() {
               password: password.value // Note: Password should be hashed in a real application
             }
           ]);
-
         if (insertError) {
           console.error('Error inserting user details:', insertError);
           toast.error('Error saving user details.', {
@@ -86,7 +91,7 @@ export function useRegister() {
           console.log('User created and details inserted successfully');
           showSuccessToast();
           setTimeout(() => {
-            router.push('/login');
+            router.push('/first-login');
           }, 3000);
         }
       } catch (error) {

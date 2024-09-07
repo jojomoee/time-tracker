@@ -3,6 +3,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import AboutView from '../views/AboutView.vue'
 import HomeView from '../views/HomeView.vue'
+import FirstLoginView from '../views/FirstLoginView.vue'
 
 
 const router = createRouter({
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: HomeView
+    },
+    {
+      path: '/first-login',
+      name: 'first-login',
+      component: FirstLoginView
     }
 
   ]

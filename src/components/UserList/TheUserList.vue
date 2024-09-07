@@ -37,6 +37,7 @@ export default {
     // Fetch users when the component is mounted
     onMounted(() => {
       fetchUsers()
+
     })
 
     return { users }

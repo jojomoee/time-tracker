@@ -35,9 +35,30 @@ export function useLogin() {
         });
 
         if (error) {
-          errors.value.general = error.message;
+          if (error.status === 400) {
+            console.error('400 Bad Request:', error.message);
+
+            // Check if the error is related to an unconfirmed email
+            if (error.message.includes('Email not confirmed')) {
+              errors.value.general = 'Please verify your email. Check your inbox for the confirmation email.';
+              return;
+            }
+
+            // Check if the error is related to wrong password or invalid credentials
+            if (error.message.includes('Invalid login credentials')) {
+              errors.value.general = 'Wrong password or email. Please try again.';
+              return;
+            }
+
+            // Default message for other 400 errors
+            errors.value.general = 'Please verify your Email, if the problem persists contact support.';
+            return;
+          }
+
           return;
         }
+
+
 
         // Redirect to home or other protected route
         router.push('/home');

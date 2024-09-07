@@ -61,7 +61,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useRegister } from '@/composables/useRegister';  // Import the composable
 
 const { firstName, lastName, email, password, repeatPassword, register } = useRegister();
