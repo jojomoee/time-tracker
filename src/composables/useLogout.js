@@ -1,26 +1,16 @@
-import { ref, onMounted, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { supabase } from '../supabase';  // Adjust the import path
+import { useSession } from './useSession';
 
 export function useLogout() {
-  const isLoggedIn = ref(false);
 
-
-  const checkLoginStatus = async () => {
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) throw error;
-      isLoggedIn.value = !!session;
-      console.log(isLoggedIn.value)
-    } catch (error) {
-      console.error('Error fetching session:', error.message);
-      isLoggedIn.value = false;
-    }
-  };
+  const { isLoggedIn, checkLoginStatus } = useSession()
 
   const logout = async () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      console.log("logged out")
       await checkLoginStatus();  // Update login status after logout
     } catch (error) {
       console.error('Error logging out:', error.message);

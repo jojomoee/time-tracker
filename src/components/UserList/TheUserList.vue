@@ -36,7 +36,3 @@ onMounted(() => {
   fetchUsers()
 })
 </script>
-
-<style scoped>
-/* Optional: Customize styles here */
-</style>

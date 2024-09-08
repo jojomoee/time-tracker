@@ -4,8 +4,6 @@
     <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-gray-100">Login</h2>
       <form @submit.prevent="handleSubmit">
-
-
         <div class="mb-6">
           <EmailInput v-model="email" :error="errors.email" />
         </div>
