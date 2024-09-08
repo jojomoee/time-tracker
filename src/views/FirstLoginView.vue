@@ -1,4 +1,6 @@
 <template>
+
+  <TheThemeToggle :isDarkMode="darkModeStore.isDarkMode" @toggleDarkMode="darkModeStore.toggleDarkMode" />
   <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
     <div class="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col">
       <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-gray-100">Welcome!</h2>
@@ -14,17 +16,15 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import TheThemeToggle from '../components/Theme/TheThemeToggle.vue'
 import { supabase } from '../supabase';
 import { useUserStore } from '@/store/user';
-
+import { useDarkModeStore } from '../store/darkMode';
 
 
 const userStore = useUserStore();
 const email = userStore.getEmail();
-onMounted(async () => {
-
-});
+const darkModeStore = useDarkModeStore();
 
 const resendVerificationEmail = async () => {
 

@@ -30,4 +30,5 @@ import FormButtons from './FormButtons.vue'
 
 // Use the useLogin composable
 const { email, password, errors, handleSubmit } = useLogin()
+
 </script>

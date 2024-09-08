@@ -1,20 +1,15 @@
-<script setup>
-import { ref } from 'vue'
-import TheLogin from '../components/Login/TheLogin.vue';
-
-const email = ref('')
-const password = ref('')
-
-const login = () => {
-  // Handle login logic here
-  console.log('Email:', email.value)
-  console.log('Password:', password.value)
-}
-</script>
-
-
 <template>
+  <TheThemeToggle :isDarkMode="darkModeStore.isDarkMode" @toggleDarkMode="darkModeStore.toggleDarkMode" />
   <form @submit.prevent="login">
     <TheLogin />
   </form>
 </template>
+
+<script setup>
+import TheLogin from '../components/Login/TheLogin.vue';
+import TheThemeToggle from '../components/Theme/TheThemeToggle.vue'
+
+import { useDarkModeStore } from '../store/darkMode';
+
+const darkModeStore = useDarkModeStore();
+</script>

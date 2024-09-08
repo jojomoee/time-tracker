@@ -1,12 +1,15 @@
 import { ref } from 'vue';
 import { supabase } from '../supabase';
 import { useRouter } from 'vue-router';
+import { useSession } from '@/composables/useSession'
 
 export function useLogin() {
   const email = ref('');
   const password = ref('');
   const errors = ref({});
   const router = useRouter();
+
+  const { checkLoginStatus } = useSession();
 
   const validateForm = () => {
     errors.value = {};
@@ -58,9 +61,8 @@ export function useLogin() {
           return;
         }
 
-
-
-        // Redirect to home or other protected route
+        //to update Login button to Logout
+        await checkLoginStatus();
         router.push('/home');
       } catch (err) {
         console.error(err);

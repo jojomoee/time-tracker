@@ -13,34 +13,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import { supabase } from '../../supabase'
 
-export default {
-  name: 'UsersList',
-  setup() {
-    const users = ref([])
+const users = ref([])
 
-    const fetchUsers = async () => {
-      const { data, error } = await supabase
-        .from('users') // Your table name
-        .select('*')   // Select all columns
+const fetchUsers = async () => {
+  const { data, error } = await supabase
+    .from('users') // Your table name
+    .select('*')   // Select all columns
 
-      if (error) {
-        console.error('Error fetching users:', error)
-      } else {
-        users.value = data // Assign data to the users ref
-      }
-    }
-
-    // Fetch users when the component is mounted
-    onMounted(() => {
-      fetchUsers()
-
-    })
-
-    return { users }
+  if (error) {
+    console.error('Error fetching users:', error)
+  } else {
+    users.value = data // Assign data to the users ref
   }
 }
+
+// Fetch users when the component is mounted
+onMounted(() => {
+  fetchUsers()
+})
 </script>
+
+<style scoped>
+/* Optional: Customize styles here */
+</style>
