@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 export const useDarkModeStore = defineStore('darkMode', () => {
   // Set dark mode to true by default
@@ -21,9 +21,6 @@ export const useDarkModeStore = defineStore('darkMode', () => {
   };
 
   // Apply dark mode by default on app load
-  onMounted(() => {
-    updateDarkMode();
-  });
 
   return {
     isDarkMode,

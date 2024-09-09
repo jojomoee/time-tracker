@@ -1,17 +1,17 @@
 <template>
-  <div class="mb-6">
-    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="password">
-      Password
-    </label>
-    <input v-model="localValue" type="password" id="password"
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:placeholder-white dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-      placeholder="Enter your password" required />
+  <div>
+    <FloatLabel>
+      <InputText v-model="localValue" type="password" id="password" />
+      <label for="username">Password</label>
+    </FloatLabel>
     <p v-if="error" class="text-red-500 text-xs italic">{{ error }}</p>
   </div>
 </template>
 
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
+import FloatLabel from "primevue/floatlabel"
+import InputText from "primevue/inputtext"
 
 const props = defineProps({
   modelValue: String,

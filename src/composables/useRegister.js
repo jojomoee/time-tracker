@@ -39,9 +39,6 @@ export function useRegister() {
       errors.value.password = 'Password must be at least 6 characters long';
     }
 
-    if (password.value !== repeatPassword.value) {
-      errors.value.repeatPassword = 'Passwords do not match';
-    }
 
     return Object.keys(errors.value).length === 0;
   };

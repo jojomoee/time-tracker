@@ -1,9 +1,11 @@
 <template>
+  <div>
+    <TheThemeToggle />
+    <form @submit.prevent="login">
+      <TheLogin />
+    </form>
 
-  <TheThemeToggle />
-  <form @submit.prevent="login">
-    <TheLogin />
-  </form>
+  </div>
 </template>
 
 <script setup>

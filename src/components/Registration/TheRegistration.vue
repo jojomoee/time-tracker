@@ -1,56 +1,49 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-gray-100">Register</h2>
-      <form @submit.prevent="register">
-        <div class="mb-4">
-          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="first-name">
-            First Name
-          </label>
-          <input v-model="firstName" type="text" id="first-name"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:placeholder-white dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your first name" required />
+  <div class="flex items-center justify-center min-h-screen bg-surface-100 dark:bg-surface-950">
+    <div class="flex justify-center items-center flex-col w-full max-w-md dark:bg-surface-900 rounded-lg shadow-md p-6">
+      <h2 class="text-4xl text-center mb-4 dark:text-gray-100 pb-6 pt-3">Create an Account</h2>
+      <form class="flex justify-center items-center flex-col" @submit.prevent="register">
+        <div>
+          <Fluid>
+            <FloatLabel class="mb-8">
+              <InputText v-model="firstName" type="text" id="first-name" />
+              <label for="first-name">First Name</label>
+            </FloatLabel>
+            <FloatLabel class="mb-8">
+              <InputText v-model="lastName" type="text" id="last-name" />
+              <label for="last-name">Last Name</label>
+            </FloatLabel>
+            <FloatLabel class="mb-8">
+              <InputText class="w-full" v-model="email" type="email" id="email" />
+              <label for="email">Email</label>
+            </FloatLabel>
+            <FloatLabel class="mb-8">
+              <Password v-model="password" id="password" toggleMask promptLabel="Choose a password">
+                <template #footer>
+                  <ul class="pl-2 ml-2 my-0 leading-normal">
+                    <li>At least one lowercase, uppercase, numeric</li>
+                    <li>Minimum 8 characters</li>
+                  </ul>
+                </template>
+              </Password>
+              <label for="password">Password</label>
+            </FloatLabel>
+            <p class="pt-4 pb-12 text-center text-xs">By clicking Create account, I agree that I have read and
+              accepted
+              the <a href="" class="text-blue-600 visited:text-purple-600"> Terms of Use </a>and
+              <a href="" class="text-blue-600 visited:text-purple-600">
+                Privacy Policy
+              </a>
+            </p>
+          </Fluid>
         </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="last-name">
-            Last Name
-          </label>
-          <input v-model="lastName" type="text" id="last-name"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:placeholder-white dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your last name" required />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="email">
-            Email
-          </label>
-          <input v-model="email" type="email" id="email"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:placeholder-white dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your email" required />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="password">
-            Password
-          </label>
-          <input v-model="password" type="password" id="password"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:placeholder-white dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your password" required />
-        </div>
-        <div class="mb-6">
-          <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="repeat-password">
-            Repeat Password
-          </label>
-          <input v-model="repeatPassword" type="password" id="repeat-password"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:placeholder-white dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Repeat your password" required />
-        </div>
+        <!-- Animated red div -->
+
+        <!-- Submit Button and Link -->
         <div class="flex items-center justify-between flex-col">
-          <button type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Register
-          </button>
+          <Button type="submit" label="Create account" />
           <div class="flex flex-col justify-center items-center">
-            <router-link to="/login"
-              class="mt-5 inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600">
+            <router-link to="/login" class="p-6 underline hover:text-primary-200">
               Already have an account? Login.
             </router-link>
           </div>
@@ -62,10 +55,15 @@
 
 <script setup>
 import { useRegister } from '@/composables/useRegister';  // Import the composable
+import FloatLabel from 'primevue/floatlabel';
+import InputText from "primevue/inputtext";
+import Button from "primevue/button";
+import Password from "primevue/password";
+import Fluid from 'primevue/fluid';
 
-const { firstName, lastName, email, password, repeatPassword, register } = useRegister();
+// Track focus state of the password field
+
+const { firstName, lastName, email, password, register } = useRegister();
 </script>
 
-<style scoped>
-/* Add your styles here */
-</style>
+<style scoped></style>
