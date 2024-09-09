@@ -11,6 +11,7 @@ export function useLogout() {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       console.log("logged out")
+
       await checkLoginStatus();  // Update login status after logout
     } catch (error) {
       console.error('Error logging out:', error.message);

@@ -10,26 +10,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import Button from 'primevue/button'
+import { useDarkMode } from '@/composables/useDarkMode'; // Adjust the path based on your folder structure
+import Button from 'primevue/button';
 
-const isDarkMode = ref(true); // Default to dark mode
-const iconClass = ref('pi pi-sun'); // Default icon
+const { iconClass, toggleDarkMode } = useDarkMode();
 
-function toggleDarkMode() {
-  const element = document.querySelector('html');
-  if (!isDarkMode.value) {
-    element.classList.remove('dark');
-    element.classList.remove('p-dark');
-    iconClass.value = 'pi pi-sun'; // Sun icon for light mode
-  } else {
-    console.log("hello")
-    element.classList.add('dark');
-    element.classList.add('p-dark');
-    iconClass.value = 'pi pi-moon'; // Moon icon for dark mode
-  }
-  isDarkMode.value = !isDarkMode.value;
-}
-
-// Enable dark mode by default if desired
 </script>

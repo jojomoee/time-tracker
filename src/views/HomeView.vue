@@ -1,12 +1,12 @@
 <template>
-  <TheThemeToggle class="right-0" />
   <main>
+    <ThePopupMenu />
     <TheHome />
   </main>
 </template>
 
 <script setup>
 import TheHome from '../components/Home/TheHome.vue'
-import TheThemeToggle from '../components/Theme/TheThemeToggle.vue'
+import ThePopupMenu from '../components/Menu/ThePopupMenu.vue'
 
 </script>
