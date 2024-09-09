@@ -11,9 +11,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@primevue/themes": "^4.0.5",
     "@supabase/supabase-js": "^2.45.3",
     "gsap": "^3.12.5",
     "pinia": "^2.2.2",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.0.5",
+    "tailwindcss-primeui": "^0.3.4",
     "valibot": "^0.41.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3",

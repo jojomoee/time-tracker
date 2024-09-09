@@ -1,9 +1,6 @@
 <template>
   <div class="flex items-center justify-between flex-col">
-    <button type="submit"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-      Login
-    </button>
+    <Button type="submit" label="Login" raised />
     <div class="flex flex-col justify-center items-center">
       <a href="#"
         class="mt-5 inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600">
@@ -16,3 +13,6 @@
     </div>
   </div>
 </template>
+<script setup>
+import Button from 'primevue/button'
+</script>
