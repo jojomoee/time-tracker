@@ -4,6 +4,7 @@ import RegisterView from '../views/RegistrationView.vue'
 import HomeView from '../views/HomeView.vue'
 import FirstLoginView from '../views/FirstLoginView.vue'
 import UserListView from '../views/UserListView.vue'
+import DashboardView from '../views/DashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,7 +28,13 @@ const router = createRouter({
     {
       path: '/home',
       name: 'Home',
-      component: HomeView
+      component: HomeView,
+    },
+
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: DashboardView
     },
     {
       path: '/first-login',

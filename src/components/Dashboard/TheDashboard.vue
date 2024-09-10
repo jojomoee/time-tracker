@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-center flex-col min-h-screen bg-surface-100 dark:bg-surface-950">
-    Welcome
+    <p>Hello Dashboard</p>
   </div>
 </template>
 

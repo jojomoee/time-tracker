@@ -60,7 +60,6 @@ app.use(Vue3Toastify, {
   autoClose: 3000, // Toast will close after 3 seconds
   position: "top-right",
 });
-
 app.use(PrimeVue, {
   // Default theme configuration
   theme: {

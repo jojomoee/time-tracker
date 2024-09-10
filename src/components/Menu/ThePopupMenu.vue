@@ -37,6 +37,10 @@ const menuItems = computed(() => [
         icon: 'pi pi-question-circle',
       },
       {
+        label: 'User Name',
+        icon: 'pi pi-user',
+      },
+      {
         label: 'Sign Out',
         icon: 'pi pi-sign-out',
         command: async () => {
