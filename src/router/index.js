@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import FirstLoginView from '../views/FirstLoginView.vue'
 import UserListView from '../views/UserListView.vue'
 import DashboardView from '../views/DashboardView.vue'
+import TimesView from '../views/TimesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       meta: { transition: 'slide-left' },
     },
     {
+      path: '/first-login',
+      name: 'first-login',
+      component: FirstLoginView
+    },
+    {
       path: '/home',
       name: 'Home',
       component: HomeView,
@@ -36,17 +42,18 @@ const router = createRouter({
       name: 'Dashboard',
       component: DashboardView
     },
+
     {
-      path: '/first-login',
-      name: 'first-login',
-      component: FirstLoginView
+      path: '/times',
+      name: 'Times',
+      component: TimesView
     },
 
     {
       path: '/user-list',
       name: 'user-list',
       component: UserListView
-    }
+    },
 
   ]
 })

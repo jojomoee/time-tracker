@@ -1,7 +1,7 @@
 <template>
   <div class="h-100 w-100">
     <!-- Button to toggle the menu -->
-    <Button class="absolute right-0 m-4" type="button" icon="pi pi-ellipsis-v" @click="toggle" aria-haspopup="true"
+    <Button class=" right-0 m-4 fixed z-10" type="button" icon="pi pi-ellipsis-v" @click="toggle" aria-haspopup="true"
       aria-controls="overlay_menu" />
 
     <!-- Menu with dynamic dark/light mode item -->

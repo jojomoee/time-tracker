@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Dock :model="items" :position="position">
+    <Dock :model="items" :position="position" class="fixed">
       <template #itemicon="{ item }">
         <i v-tooltip.right="item.label" @click="onDockItemClick($event, item)" :class="[
           item.icon,
@@ -25,7 +25,7 @@ const router = useRouter();
 const isActive = (item) => {
   return item.path === router.currentRoute.value.path;  // Compare the route path
 };
-
+//Neccesary for command in menu to work dont know why
 const onDockItemClick = (event, item) => {
   if (item.command) {
     item.command();
@@ -45,7 +45,8 @@ const items = computed(() => [
   {
     label: 'Times',
     icon: 'pi pi-calendar-clock',
-    path: '/times'
+    path: '/times',
+    command: () => { router.push('/times') }
   },
   {
     label: 'Users',
