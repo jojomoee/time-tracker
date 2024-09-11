@@ -1,20 +1,14 @@
 <template>
-
-  <div class="flex items-center justify-center min-h-screen bg-surface-100 dark:bg-surface-950">
+  <div class="flex items-center flex-col justify-center min-h-screen bg-surface-100 dark:bg-surface-950">
+    <div class="flex flex-col items-center justify-center w-full">
+      <h1 class="text-4xl text-surface-500 dark:text-primary-400 p-4 mb-12">Time Entries</h1>
+      <div class="flex justify-center items-center flex-col w-full">
+        <Button label="Advanced Search" class="w-5/6 mb-4" />
+        <InputText placeholder=" Search e.g. August or 01.01.2024" class="w-5/6" />
+      </div>
+    </div>
     <div class="w-5/6">
-
-      <div class="absolute flex justify-between sm:5/6 w-4/6 mt-4 mb-2 border border-surface-800 rounded-lg">
-        <div class="w-full overflow-x-auto">
-          <div class="flex justify-between">
-            <div v-for="month in months" :key="month" class="min-w-max p-2 sm:bg-surface-900 text-white rounded-lg">
-              {{ month }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-      </div>
-      <div class="card mt-20">
+      <div class="card">
         <DataView :value="times">
           <template #list="slotProps">
             <div class="flex flex-col">
@@ -24,9 +18,9 @@
                   class="flex w-full bg-surface-100 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
                   <div class="flex w-full justify-between">
                     <div class="p-4 sm:w-60 flex items-center">
-                      <p class="w-24 sm:w-48 font-medium text-center text-surface-500 dark:text-surface-400 text-sm">{{
+                      <p class="w-24 sm:w-48 font-medium text-center text-surface-500 dark:text-surface-500 text-sm">{{
                         time.day
-                        }}</p>
+                      }}</p>
                       <p class="text-center sm:hidden block">{{ time.start }} <br> {{ time.end }}</p>
                     </div>
                     <Timeline class="sm:flex hidden" :value="events" layout="horizontal" align="top">
@@ -35,7 +29,7 @@
                       </template>
                     </Timeline>
                     <div class="flex justify-center items-end flex-col sm:w-60  mr-4 overflow-hidden">
-                      <div class="text-center font-medium text-surface-500 dark:text-surface-400">{{ time.project }}
+                      <div class="text-center font-medium text-surface-500 dark:text-surface-500">{{ time.project }}
                       </div>
                       <span class="text-center">{{ time.hours }} hours</span>
                     </div>
@@ -53,17 +47,13 @@
 <script setup>
 import { ref } from 'vue'
 import DataView from 'primevue/dataview'
-import Button from 'primevue/button'
 import Timeline from 'primevue/timeline'
-import DatePicker from 'primevue/datepicker'
+import InputText from 'primevue/inputtext'
+import FloatLabel from 'primevue/floatlabel'
+import Button from 'primevue/button'
 
 const events = ref(['09:00', '18:00']);
 
-const months = ref([
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
-]);
-// Sample time-tracking data
 const times = ref([
   {
     day: 'Monday 01.01.2024',
