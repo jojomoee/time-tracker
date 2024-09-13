@@ -39,24 +39,31 @@ export function useRegister() {
       errors.value.password = 'Password must be at least 6 characters long';
     }
 
-
     return Object.keys(errors.value).length === 0;
   };
 
   const register = async () => {
     if (validateForm()) {
       try {
+        // Concatenate first name and last name to form full name
+
         // Register user with Supabase
         const { data, error: authError } = await supabase.auth.signUp({
           email: email.value,
           password: password.value,
+          options: {
+            data: {
+              first_name: firstName.value,
+              last_name: lastName.value,
+            },
+          },
         });
 
+        console.log(data);
         const userStore = useUserStore();
         userStore.setEmail(email.value);
 
-
-        //Error Singing in
+        // Error signing up
         if (authError) {
           console.error('Error creating user:', authError);
           toast.error('There was an error creating your account.', {
@@ -66,30 +73,13 @@ export function useRegister() {
           return;
         }
 
-        // Insert user details into the 'users' table
-        const { error: insertError } = await supabase
-          .from('users')
-          .insert([
-            {
-              id: data.user.id, // Use Supabase-generated UUID for the user ID
-              first_name: firstName.value,
-              last_name: lastName.value,
-              email: email.value,
-              password: password.value // Note: Password should be hashed in a real application
-            }
-          ]);
-        if (insertError) {
-          console.error('Error inserting user details:', insertError);
-          toast.error('Error saving user details.', {
-            theme: darkModeStore.isDarkMode ? 'dark' : 'light',
-            position: "top-right",
-          });
-        } else {
+
+        else {
           console.log('User created and details inserted successfully');
           showSuccessToast();
           setTimeout(() => {
             router.push('/first-login');
-          }, 3000);
+          }, 2000);
         }
       } catch (error) {
         console.error('Unexpected error:', error);
@@ -101,11 +91,13 @@ export function useRegister() {
     }
   };
 
+
+
   const showSuccessToast = () => {
     toast.success('Successfully registered!', {
       theme: darkModeStore.isDarkMode ? 'dark' : 'light',
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

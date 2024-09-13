@@ -1,13 +1,23 @@
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { supabase } from '../supabase';
 import { useRouter } from 'vue-router';
 import { useSession } from '@/composables/useSession'
+
 
 export function useLogin() {
   const email = ref('');
   const password = ref('');
   const errors = ref({});
   const router = useRouter();
+
+  //Check if user is already logged in 
+  onMounted(async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      // Redirect to a different page if the user is already logged in
+      router.push('/home'); // or another route you want to redirect to
+    }
+  });
 
   const { checkLoginStatus } = useSession();
 

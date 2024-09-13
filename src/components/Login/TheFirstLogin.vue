@@ -17,6 +17,8 @@ import Button from "primevue/button"
 
 const userStore = useUserStore();
 const email = userStore.getEmail();
+
+
 const resendVerificationEmail = async () => {
 
   const { error } = await supabase.auth.resend({

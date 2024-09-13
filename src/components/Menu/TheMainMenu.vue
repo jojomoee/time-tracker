@@ -49,7 +49,12 @@ const items = computed(() => [
     command: () => { router.push('/times') }
   },
   {
-    label: 'Users',
+    label: 'Spaces',
+    icon: 'pi pi-expand',
+    path: '/users'
+  },
+  {
+    label: 'Employees',
     icon: 'pi pi-users',
     path: '/users'
   },

@@ -1,18 +1,20 @@
 import { ref, onMounted } from 'vue';
 
 export function useDarkMode() {
-  const isDarkMode = ref(true); //default dark mode
+  const isDarkMode = ref(true); // Default dark mode
   const iconClass = ref('pi pi-sun'); // Default icon
 
   // Check system preference or saved preference
   function initDarkMode() {
-    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedPreference = localStorage.getItem('darkMode');
 
-    if (userPrefersDark) {
-      isDarkMode.value = true
+    if (savedPreference !== null) {
+      isDarkMode.value = savedPreference === 'true'; // Use saved preference
     } else {
-      isDarkMode.value = false
+      const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      isDarkMode.value = userPrefersDark;
     }
+
     applyDarkMode();
   }
 
@@ -28,6 +30,9 @@ export function useDarkMode() {
       element.classList.remove('p-dark');
       iconClass.value = 'pi pi-sun'; // Sun icon for light mode
     }
+
+    // Save preference to localStorage
+    localStorage.setItem('darkMode', isDarkMode.value);
   }
 
   function toggleDarkMode() {
