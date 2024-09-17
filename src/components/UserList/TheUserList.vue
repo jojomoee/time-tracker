@@ -1,38 +1,51 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <div class="flex justify-center flex-col">
-        <h1 class="text-center text-gray-900 dark:text-white text-2xl">Users List</h1>
-        <ul>
-          <li class="text-center text-gray-900 dark:text-white text-2xl" v-for="user in users" :key="user.id">
-            {{ user.first_name }} {{ user.last_name }} - {{ user.email }}
-          </li>
-        </ul>
-      </div>
+  <div>
+    <h1>Select a Space</h1>
+    <ul>
+      <li v-for="space in spaces" :key="space.id" @click="selectSpace(space)">
+        {{ space.name }}
+      </li>
+    </ul>
+
+    <div v-if="selectedSpace">
+      <h2>Projects in {{ selectedSpace.name }}</h2>
+      <ul>
+        <li v-for="project in projects" :key="project.id" @click="selectProject(project)">
+          {{ project.name }}
+        </li>
+      </ul>
+    </div>
+
+    <div v-if="selectedProject">
+      <h3>Tasks in {{ selectedProject.name }}</h3>
+      <ul>
+        <li v-for="task in tasks" :key="task.id">
+          {{ task.name }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '../../supabase'
+import { onMounted, ref } from 'vue';
+import { useSpaces } from '../../composables/useSpaces';
 
-const users = ref([])
+const { spaces, selectedSpace, projects, tasks, fetchSpaces, fetchProjects, fetchTasks } = useSpaces();
 
-const fetchUsers = async () => {
-  const { data, error } = await supabase
-    .from('users') // Your table name
-    .select('*')   // Select all columns
+const selectedProject = ref(null);
 
-  if (error) {
-    console.error('Error fetching users:', error)
-  } else {
-    users.value = data // Assign data to the users ref
-  }
-}
+const selectSpace = (space) => {
+  selectedSpace.value = space;
+  fetchProjects(space.id);
+};
 
-// Fetch users when the component is mounted
+const selectProject = (project) => {
+  selectedProject.value = project;
+  fetchTasks(project.id);
+};
+
 onMounted(() => {
-  fetchUsers()
-})
+  fetchSpaces();
+});
 </script>

@@ -6,6 +6,7 @@ import FirstLoginView from '../views/FirstLoginView.vue'
 import UserListView from '../views/UserListView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import TimesView from '../views/TimesView.vue'
+import SpacesView from '../views/SpacesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,7 +49,11 @@ const router = createRouter({
       name: 'Times',
       component: TimesView
     },
-
+    {
+      path: '/spaces',
+      name: 'Spaces',
+      component: SpacesView
+    },
     {
       path: '/user-list',
       name: 'user-list',

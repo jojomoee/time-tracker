@@ -51,7 +51,8 @@ const items = computed(() => [
   {
     label: 'Spaces',
     icon: 'pi pi-expand',
-    path: '/users'
+    path: '/spaces',
+    command: () => { router.push('/spaces') }
   },
   {
     label: 'Employees',
