@@ -2,7 +2,7 @@ import { ref, onMounted } from 'vue';
 import { supabase } from '../../supabase';
 import { useSession } from '../useSession';
 
-export function useSelectedSpace() {
+export function useSelectedSpaces() {
   const { user, checkLoginStatus } = useSession();  // Import user and checkLoginStatus
   const selectedSpace = ref(null);
 
@@ -38,7 +38,7 @@ export function useSelectedSpace() {
         .select('selected_space_id')
         .eq('id', user.value.id) // Get the selected space based on the logged-in user
         .single();
-      console.log(data.selected_space_id)
+      console.log(data)
 
       if (error) throw error;
 
@@ -49,10 +49,10 @@ export function useSelectedSpace() {
   };
 
   // Fetch selected space on component mount
-  onMounted(async () => {
-    await checkLoginStatus();  // Ensure the session is checked
-    fetchSelectedSpace();  // Fetch the space after checking the login status
-  });
+  //  onMounted(async () => {
+  //    await checkLoginStatus();  // Ensure the session is checked
+  //    fetchSelectedSpace();  // Fetch the space after checking the login status
+  //  });
 
   return {
     selectedSpace,
