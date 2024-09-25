@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { supabase } from '../../supabase'; // Adjust the path to your Supabase instance
+import { supabase } from '../../supabase';
 
 export function useSpacesCrud() {
   const spaceName = ref('');

@@ -52,12 +52,13 @@ const items = computed(() => [
     label: 'Spaces',
     icon: 'pi pi-expand',
     path: '/spaces',
-    command: () => { router.push('/spaces') }
+    command: () => { router.push('/spaces/:id') }
   },
   {
     label: 'Employees',
     icon: 'pi pi-users',
-    path: '/users'
+    path: '/users',
+    command: () => { router.push('/users') }
   },
   {
     label: 'Dashboard',

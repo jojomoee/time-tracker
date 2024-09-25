@@ -1,5 +1,5 @@
 
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { supabase } from '../supabase';  // Adjust the import path
 
 export function useSession() {

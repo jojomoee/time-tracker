@@ -53,31 +53,6 @@ const projectId = ref(''); // This will be set after creating a project
 // Task form fields
 const taskName = ref('');
 // Create project handler
-const createProject = async () => {
-  if (!projectName.value || !spaceId.value) {
-    toast.error('Please provide a name and select a space for the project.');
-    return;
-  }
-
-  try {
-    const { data: newProject, error: insertError } = await supabase
-      .from('projects')
-      .insert([{ name: projectName.value, space_id: spaceId.value }])
-      .select()
-      .single(); // Insert a single row and get the inserted data
-
-    if (insertError) {
-      throw insertError;
-    }
-
-    projectId.value = newProject.id; // Save the newly created project ID
-    toast.success('Project created successfully!');
-    projectName.value = '';
-  } catch (error) {
-    console.error('Error creating project:', error.message);
-    toast.error('Failed to create project. Please try again.');
-  }
-};
 
 // Create task handler
 const createTask = async () => {

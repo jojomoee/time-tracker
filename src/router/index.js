@@ -50,13 +50,19 @@ const router = createRouter({
       component: TimesView
     },
     {
+      path: '/spaces/:id',
+      name: 'SpaceDetail',
+      component: SpacesView,
+      props: true,
+    },
+    {
       path: '/spaces',
       name: 'Spaces',
       component: SpacesView
     },
     {
-      path: '/user-list',
-      name: 'user-list',
+      path: '/users',
+      name: 'users',
       component: UserListView
     },
 

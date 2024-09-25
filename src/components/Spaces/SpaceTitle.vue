@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="m-2 text-xl max-w-80 overflow-x-auto">Projects in: <br> {{ selectedSpaceName || 'No Space Selected' }}
+    <h1 class="m-2 text-2xl overflow-x-auto">{{ selectedSpaceName || 'No Space Selected' }}
     </h1>
   </div>
 </template>

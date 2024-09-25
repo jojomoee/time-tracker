@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Button severity="secondary" label="Add new" @click="visible = true" />
+    <Button severity="" icon="pi pi-plus" rounded @click="visible = true" />
     <Dialog v-model:visible="visible" modal header="Add a new Space" :style="{ width: '25rem' }">
       <span class="text-surface-500 dark:text-surface-400 block mb-8">e.g. Person, Project or Company</span>
       <div class="flex items-center gap-4 mb-4">
