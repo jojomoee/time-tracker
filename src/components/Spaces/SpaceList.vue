@@ -1,39 +1,37 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-surface-100 dark:bg-surface-950">
-    <div class="h-5/6 w-5/6 items-center flex justify-center flex-wrap mt-2">
-      <SpaceCard v-for="(space, index) in spaces" :key="space.id" :space="space" :selectedSpace="selectedSpace"
-        :index="index" :selectSpace="selectSpace" />
-      <Button label="Add a Space" />
-    </div>
-  </div>
+  <SpaceCard v-for="(space, index) in spaces" :key="space.id" :space="space" :selectedSpaceId="selectedSpaceId"
+    :index="index" :selectSpaceFrontend="selectSpaceFrontend" />
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import Button from 'primevue/button';
 import SpaceCard from './SpaceCard.vue';
-import { useSelectedSpaces } from '../../composables/spaces/useSelectedSpaces';
-import { useSpacesCrud } from '../../composables/spaces/useSpacesCRUD';
+import { useSelectedSpaces } from '../../composables/spaces/useSelectedSpaces'
 
-const { selectedSpace, fetchSelectedSpace, saveSelectedSpace } = useSelectedSpaces();
-const { spaces, fetchSpaces } = useSpacesCrud();
+const { saveSelectedSpace } = useSelectedSpaces();
 
-// Temporarily store the previous selected space for potential rollback
-onMounted(() => {
-  fetchSelectedSpace(); // Fetch selected space from db
-  fetchSpaces(); // Fetch spaces from db
+const props = defineProps({
+  spaces: {
+    type: Array,
+    required: true,
+  },
+  selectedSpaceId: {
+    type: String
+  }
 });
 
-const selectSpace = async (spaceId) => {
-  const previousSelectedSpace = selectedSpace.value; // Store the previous space before selecting a new one
-  selectedSpace.value = spaceId; // Optimistically update the UI
+const emit = defineEmits(['update:selectedSpaceId']); // Define emit for the event
 
+const selectSpaceFrontend = async (spaceId) => {
+  const previousSelectedSpace = props.selectedSpaceId; // Store the previous selected space
+  emit('update:selectedSpaceId', spaceId);
   try {
-    await saveSelectedSpace(spaceId); // Save the selected space to the DB
+    await saveSelectedSpace(spaceId); // Save the selected space
+    emit('update:selectedSpaceId', spaceId); // Emit the event to update selectedSpaceId
   } catch (error) {
     console.error('Failed to save selected space:', error);
-    // Revert to the previous space if saving fails
-    selectedSpace.value = previousSelectedSpace;
+    emit('update:selectedSpaceId', previousSelectedSpace); // Emit the previous selected space in case of an error
   }
 };
+
+
 </script>

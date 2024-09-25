@@ -22,16 +22,16 @@ const projects = ref([]);
 const spaces = ref(null);
 
 // Use the custom composable for selected space
-const { selectedSpace, fetchSelectedSpace } = useSelectedSpaces();
+const { selectedSpaceId, fetchSelectedSpace } = useSelectedSpaces();
 
 // Fetch space details
 const fetchSpaceDetails = async () => {
   try {
-    if (!selectedSpace.value) return;
+    if (!selectedSpaceId.value) return;
     const { data, error } = await supabase
       .from('spaces')
       .select('name')
-      .eq('id', selectedSpace.value)
+      .eq('id', selectedSpaceId.value)
       .single();
 
     if (error) throw error;
@@ -45,11 +45,11 @@ const fetchSpaceDetails = async () => {
 // Fetch projects based on the selected space
 const fetchProjects = async () => {
   try {
-    if (!selectedSpace.value) return;
+    if (!selectedSpaceId.value) return;
     const { data, error } = await supabase
       .from('projects')
       .select('*')
-      .eq('space_id', selectedSpace.value);
+      .eq('space_id', selectedSpaceId.value);
 
     if (error) throw error;
     projects.value = data;
@@ -58,9 +58,9 @@ const fetchProjects = async () => {
   }
 };
 
-// Watch for changes in selectedSpace and fetch space/projects data
+// Watch for changes in selectedSpaceId and fetch space/projects data
 watchEffect(() => {
-  if (selectedSpace.value) {
+  if (selectedSpaceId.value) {
     fetchSpaceDetails();
     fetchProjects();
   }

@@ -1,6 +1,4 @@
-
 import { ref } from 'vue';
-import { toast } from 'vue3-toastify';
 import { supabase } from '../../supabase'; // Adjust the path to your Supabase instance
 
 export function useSpacesCrud() {
@@ -14,11 +12,9 @@ export function useSpacesCrud() {
   const isUpdating = ref(false);
   const isDeleting = ref(false);
 
-  // Create space handler
-  const createSpace = async () => {
-    if (!spaceName.value) {
-      toast.error('Please provide a name for the space.');
-      return;
+  const createSpace = async (spaceName) => {
+    if (!spaceName) {
+      return null; // Return null if no space name is provided
     }
 
     isCreating.value = true; // Set loading state to true
@@ -28,18 +24,16 @@ export function useSpacesCrud() {
 
       const { data: newSpace, error: insertError } = await supabase
         .from('spaces')
-        .insert([{ name: spaceName.value, owner_id: user.id }])
+        .insert([{ name: spaceName, owner_id: user.id }])
         .select()
         .single();
 
       if (insertError) throw insertError;
 
-      spaceId.value = newSpace.id;
-      toast.success('Space created successfully!');
-      spaceName.value = '';
+      return newSpace; // Return the newly created space
     } catch (error) {
       console.error('Error creating space:', error.message);
-      toast.error('Failed to create space. Please try again.');
+      return null; // Return null in case of error
     } finally {
       isCreating.value = false; // Set loading state back to false
     }
@@ -58,7 +52,6 @@ export function useSpacesCrud() {
       spaces.value = data;
     } catch (error) {
       console.error('Error fetching spaces:', error.message);
-      toast.error('Failed to fetch spaces.');
     } finally {
       isFetching.value = false; // Set loading state back to false
     }
@@ -75,11 +68,9 @@ export function useSpacesCrud() {
 
       if (error) throw error;
 
-      toast.success('Space updated successfully!');
       fetchSpaces(); // Refresh spaces after updating
     } catch (error) {
       console.error('Error updating space:', error.message);
-      toast.error('Failed to update space.');
     } finally {
       isUpdating.value = false; // Set loading state back to false
     }
@@ -96,15 +87,15 @@ export function useSpacesCrud() {
 
       if (error) throw error;
 
-      toast.success('Space deleted successfully!');
       fetchSpaces(); // Refresh spaces after deleting
     } catch (error) {
       console.error('Error deleting space:', error.message);
-      toast.error('Failed to delete space.');
     } finally {
       isDeleting.value = false; // Set loading state back to false
     }
   };
+
+
 
   return {
     spaceName,
