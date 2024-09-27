@@ -6,7 +6,7 @@
         <SpaceAdd :spaces="spaces" @new-space-created="addSpaceToList" />
         <div class="flex overflow-auto gap-x-3 mx-4 items-center">
           <SpaceList :spaces="spaces" :selectedSpaceId="selectedSpaceId"
-            @update:selectedSpaceId="selectedSpaceId = $event" />
+            @update:selectedSpaceId="updateSelectedSpaceId" />
         </div>
       </div>
       <div class="m-4 bg-surface-200 dark:bg-surface-900 rounded-lg">
@@ -41,6 +41,10 @@ import { useProjectsCrud } from '../../composables/projects/useProjectsCrud'
 const { fetchSelectedSpace, selectedSpaceId } = useSelectedSpaces();
 const { fetchSpaces, spaces, deleteSpace } = useSpacesCrud();
 const { fetchProjects, projects } = useProjectsCrud();
+
+const updateSelectedSpaceId = (spaceId) => {
+  selectedSpaceId.value = spaceId;
+};
 
 const addSpaceToList = (newSpace) => {
   spaces.value.push(newSpace);

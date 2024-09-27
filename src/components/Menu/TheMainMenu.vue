@@ -16,16 +16,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, watchEffect } from 'vue';
 import Dock from 'primevue/dock';
 import { useRouter } from 'vue-router';
+import { useSelectedSpaces } from '../../composables/spaces/useSelectedSpaces'; // Assuming you have this composable
+import { useSpacesCrud } from '../../composables/spaces/useSpacesCrud.js'
 
 const router = useRouter();
 
-const isActive = (item) => {
-  return item.path === router.currentRoute.value.path;  // Compare the route path
+const { selectedSpaceId, fetchSelectedSpace } = useSelectedSpaces(); // Get the selected space ID
+const { spaces, fetchSpaces } = useSpacesCrud();
+const selectedSpaceName = ref('');
+
+const updateSelectedSpaceName = () => {
+  const selectedSpace = spaces.value.find(space => space.id === selectedSpaceId.value);
+  selectedSpaceName.value = selectedSpace ? selectedSpace.name : '';
 };
-//Neccesary for command in menu to work dont know why
+const isActive = (item) => {
+  // Check if the current route starts with the item's path
+  return router.currentRoute.value.path.startsWith(item.path);
+};
+
+// Necessary for command in menu to work
 const onDockItemClick = (event, item) => {
   if (item.command) {
     item.command();
@@ -52,7 +64,13 @@ const items = computed(() => [
     label: 'Spaces',
     icon: 'pi pi-expand',
     path: '/spaces',
-    command: () => { router.push('/spaces/:id') }
+    command: () => {
+      if (selectedSpaceId.value) {
+        router.push(`/spaces/${selectedSpaceName.value.toLowerCase()}`);
+      } else {
+        router.push('/spaces');
+      }
+    }
   },
   {
     label: 'Employees',
@@ -86,11 +104,19 @@ const handleResize = () => {
 };
 
 // On component mount, set the initial position and add resize listener
-onMounted(() => {
+onMounted(async () => {
   handleResize();
   window.addEventListener('resize', handleResize);
+  await fetchSelectedSpace();
+  await fetchSpaces();
 });
 
+watchEffect(() => {
+  if (selectedSpaceId.value && spaces.value.length > 0) {
+    console.log("aaa")
+    updateSelectedSpaceName(); // Call the function to update the selected space name
+  }
+});
 // Clean up event listener on component unmount
 onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize);
