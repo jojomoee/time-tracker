@@ -1,20 +1,24 @@
 <template>
   <div class="flex  items-center justify-start flex-col min-h-screen bg-surface-100 dark:bg-surface-950">
-    <div class="w-full md:w-5/6 flex flex-col justify-center">
+    <div class="w-full md:w-5/6 flex flex-col justify-center ">
       <h1 class="text-5xl m-4 text-surface-700">Spaces</h1>
       <div class="flex mx-4">
-        <SpaceAdd :spaces="spaces" @new-space-created="addSpaceToList" />
-        <div class="flex overflow-auto gap-x-3 mx-4 items-center">
+        <div class="flex overflow-auto gap-x-3  items-center">
           <SpaceList :spaces="spaces" :selectedSpaceId="selectedSpaceId"
             @update:selectedSpaceId="updateSelectedSpaceId" />
         </div>
+        <SpaceAdd class="mx-3" :spaces="spaces" @new-space-created="addSpaceToList" />
       </div>
       <div class="m-4 bg-surface-200 dark:bg-surface-900 rounded-lg">
-        <div class="flex justify-center items-center">
-          <SpaceTitle :spaces="spaces" :selectedSpaceId="selectedSpaceId" />
+        <div class="flex justify-between items-center m-4">
+          <SpaceTitle :spaces="spaces" :profileName="profileName" :selectedSpaceId="selectedSpaceId" />
           <SpaceMenu :spaces="spaces" :selectedSpaceId="selectedSpaceId" @delete-space="removeSpace" />
         </div>
         <div class="flex flex-col items-center justify-center">
+          <div class="flex w-full flex-wrap">
+            <SpaceUserList :selectedSpaceId="selectedSpaceId" />
+            <SpaceUserAdd />
+          </div>
           <SpaceProjectList :projects="projects" />
           <SpaceProjectAdd :selectedSpaceId="selectedSpaceId" @new-project-created="addProjectToList" />
         </div>
@@ -32,15 +36,19 @@ import SpaceAdd from './SpaceAdd.vue'
 import SpaceTitle from './SpaceTitle.vue'
 import SpaceProjectList from './SpaceProjectList.vue'
 import SpaceProjectAdd from './SpaceProjectAdd.vue'
+import SpaceUserList from './SpaceUserList.vue'
+import SpaceUserAdd from './SpaceUserAdd.vue'
 
 import { useSpacesCrud } from '../../composables/spaces/useSpacesCrud.js'
 import { useSelectedSpaces } from '../../composables/spaces/useSelectedSpaces';
 import { useProjectsCrud } from '../../composables/projects/useProjectsCrud'
+import { useUserCrud } from '../../composables/user/useUserCrud'
 
 
 const { fetchSelectedSpace, selectedSpaceId } = useSelectedSpaces();
 const { fetchSpaces, spaces, deleteSpace } = useSpacesCrud();
 const { fetchProjects, projects } = useProjectsCrud();
+const { fetchUserNameOfSelectedSpace, profileName } = useUserCrud();
 
 const updateSelectedSpaceId = (spaceId) => {
   selectedSpaceId.value = spaceId;
@@ -69,6 +77,7 @@ onMounted(async () => {
 watchEffect(() => {
   if (selectedSpaceId.value) {
     fetchProjects(selectedSpaceId);
+    fetchUserNameOfSelectedSpace(selectedSpaceId.value);
   }
 });
 

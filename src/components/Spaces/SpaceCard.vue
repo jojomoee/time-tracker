@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['rounded-lg cursor-pointer hover:bg-surface-300',
-      space.id === selectedSpaceId ? 'bg-primary-500 dark:bg-primary-500 text-black' : 'bg-surface-200 dark:bg-surface-900']"
+      space.id === selectedSpaceId ? 'bg-primary-400 dark:bg-primary-400 text-black' : 'bg-surface-200 dark:bg-surface-900']"
     @click="selectSpaceFrontend(space.id)">
     <div class="overflow-auto p-2 h-full w-full">
       <p class="text-nowrap">{{ space.name }}</p>

@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <h1 class="m-2 text-2xl overflow-x-auto">{{ selectedSpaceName || 'No Space Selected' }}
+  <div class="flex justify-center items-baseline">
+    <h1 class="text-2xl overflow-x-auto">{{ selectedSpaceName || 'No Space Selected' }}
     </h1>
+    <div class=" ml-4 ">
+      <p class="text-sm">{{ props.profileName }} </p>
+    </div>
   </div>
 </template>
 <script setup>
@@ -14,6 +17,9 @@ const props = defineProps({
     required: true,
   },
   selectedSpaceId: {
+    type: String
+  },
+  profileName: {
     type: String
   }
 });

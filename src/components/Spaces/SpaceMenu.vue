@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Button class="m-2" type="button" severity="secondary" icon="pi pi-cog" @click="toggleMenu" aria-haspopup="true"
+    <Button type="button" severity="secondary" icon="pi pi-cog" @click="toggleMenu" aria-haspopup="true"
       aria-controls="overlay_menu" />
     <Menu :ref="setMenuRef" id="overlay_menu" :model="menuItems" :popup="true" />
 

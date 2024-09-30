@@ -1,4 +1,3 @@
-
 import { ref } from 'vue';
 import { supabase } from '../supabase';  // Adjust the import path
 
@@ -10,9 +9,8 @@ export function useSession() {
     try {
       const { data: { session }, error } = await supabase.auth.getSession();
       if (error) throw error;
-      //For Login 
-      isLoggedIn.value = !!session;
 
+      isLoggedIn.value = !!session;
       user.value = session ? session.user : null; // Set the user if logged in
     } catch (error) {
       console.error('Error fetching session:', error.message);
@@ -21,13 +19,23 @@ export function useSession() {
     }
   };
 
-  //  watch(isLoggedIn, (newValue) => {
-  //    console.log('Login status changed:', newValue);
-  //  });
+  // Function to fetch only the userId
+  const getUserId = async () => {
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) throw error;
+
+      return session?.user?.id || null; // Return user ID or null if not logged in
+    } catch (error) {
+      console.error('Error fetching userId:', error.message);
+      return null;
+    }
+  };
 
   return {
     isLoggedIn,
-    user, // Return the user object
-    checkLoginStatus
+    user,
+    checkLoginStatus,
+    getUserId // Return the new function to get the userId
   };
 }

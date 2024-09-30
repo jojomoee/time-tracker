@@ -5,7 +5,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'; // Import useRouter
-import { computed, watch, onMounted } from 'vue';
+import { computed, watch } from 'vue';
 import SpaceCard from './SpaceCard.vue';
 import { useSelectedSpaces } from '../../composables/spaces/useSelectedSpaces';
 

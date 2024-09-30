@@ -107,13 +107,12 @@ const handleResize = () => {
 onMounted(async () => {
   handleResize();
   window.addEventListener('resize', handleResize);
-  await fetchSelectedSpace();
   await fetchSpaces();
+  await fetchSelectedSpace();
 });
 
 watchEffect(() => {
   if (selectedSpaceId.value && spaces.value.length > 0) {
-    console.log("aaa")
     updateSelectedSpaceName(); // Call the function to update the selected space name
   }
 });

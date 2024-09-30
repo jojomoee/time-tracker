@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { supabase } from '../../supabase';
-
+import { useSession } from '../useSession'
 export function useSpacesCrud() {
   const spaceName = ref('');
   const spaceId = ref('');
@@ -11,6 +11,8 @@ export function useSpacesCrud() {
   const isFetching = ref(false);
   const isUpdating = ref(false);
   const isDeleting = ref(false);
+  const { getUserId } = useSession();
+
 
   const createSpace = async (spaceName) => {
     if (!spaceName) {
@@ -42,14 +44,36 @@ export function useSpacesCrud() {
   // Fetch spaces
   const fetchSpaces = async () => {
     isFetching.value = true; // Set loading state to true
+    const userId = await getUserId();
     try {
-      const { data, error } = await supabase
+      const { data: ownedSpaces, error: ownerError } = await supabase
         .from('spaces')
-        .select('*');
+        .select('*')
+        .eq('owner_id', userId);
 
-      if (error) throw error;
+      if (ownerError) {
+        throw ownerError;
+      }
 
-      spaces.value = data;
+      // Fetch spaces where the user is invited (in space_profiles)
+      const { data: invitedSpaces, error: inviteError } = await supabase
+        .from('space_profiles')
+        .select('spaces(*)')  // Fetch the related spaces
+        .eq('user_id', userId);
+
+      if (inviteError) {
+        throw inviteError;
+      }
+
+      // Extract spaces from the invitedSpaces result
+      const invitedSpacesList = invitedSpaces.map(profile => profile.spaces);
+
+      // Combine owned and invited spaces
+      const allSpaces = [...ownedSpaces, ...invitedSpacesList];
+
+
+      spaces.value = allSpaces;
+
     } catch (error) {
       console.error('Error fetching spaces:', error.message);
     } finally {
